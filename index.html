@@ -9,7 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Duke CSA</title>
+
+    <!-- angularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+
+    
+    <script src="javascripts/csaApp.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,12 +25,15 @@
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
 
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +44,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-app="csaApp">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -46,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Duke Chinese Student Association</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,6 +81,13 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
+
+                    <p class="navbar-right navbar-text" style = "margin-right: 20px;">
+                        <a href="#/login" ng-show=true>Login    -</a>
+                        <a href="#/signup" ng-show=true>Register</a></p>
+                    <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;"><a href="#/" ng-click="signout()">Logout</a></p>
+                    <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;">Signed in as {{current_user}}</p>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -81,12 +99,43 @@
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Welcome To Our Studio!</div>
+                <div class="intro-lead-in">Welcome To Duke CSA!</div>
                 <div class="intro-heading">It's Nice To Meet You</div>
-                <a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>
+                <a href="#services" class="page-scroll btn btn-xl">Learn More</a>
             </div>
         </div>
     </header>
+
+
+    <!-- whatsnew.html , display all newsfeed--> 
+    <section id="upcomingEvents" ng-controller="newsCtrl">
+        <div class="clearfix" ng-controller="newsCtrl">
+            <form ng-Submit = "post()" ><!--ng-show="authenticated" -->
+                <h4>{{current_user}} posts new events:</h4>
+                <!--<input required class="form-control" type="text" placeholder="Your name" ng-model="newPost.created_by"/> --> 
+                <input required class="form-control" type="text" placeholder="Event location" ng-model="newPost.created_location"/>
+                <textarea required class="form-control" maxlength="200" rows="3" placeholder="Event description" ng-model="newPost.text"></textarea>
+
+
+                <input class="btn btn-default pull-right" type="submit" value="Submit" />
+            </form>
+
+            <div id="post-stream">
+                <div class="col-lg-12 text-center">
+
+                    <h2 class="section-heading">Upcoming Events</h2>
+                </div>
+                <div class="post" ng-repeat="post in posts | orderBy:'created_time':true" ng-class-odd="'odd'" ng-class-even="'even'"> 
+                    <p>{{post.text}}</p>
+                    <small>Posted by {{post.created_by}} </small>
+                    <small class="pull-right"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{post.created_location}} @ {{post.created_time | date:"h:mma 'on' MMM d, y"}}</small>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
     <!-- Services Section -->
     <section id="services">
@@ -125,6 +174,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Portfolio Grid Section -->
     <section id="portfolio" class="bg-light-gray">
