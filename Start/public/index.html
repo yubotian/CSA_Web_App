@@ -46,6 +46,9 @@
 
 <body id="page-top" class="index" ng-app="csaApp">
 
+
+
+
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -83,8 +86,9 @@
                     </li>
 
                     <p class="navbar-right navbar-text" style = "margin-right: 20px;">
-                        <a href="#/login" ng-show=true>Login    -</a>
-                        <a href="#/signup" ng-show=true>Register</a></p>
+
+                        <a href="#/login" ng-hide="authenticated">Admin Login</a>
+                        <a href="#/signup" ng-show="authenticated">Register</a></p>
                     <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;"><a href="#/" ng-click="signout()">Logout</a></p>
                     <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;">Signed in as {{current_user}}</p>
 
@@ -98,19 +102,19 @@
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Welcome To Duke CSA!</div>
-                <div class="intro-heading">It's Nice To Meet You</div>
-                <a href="#services" class="page-scroll btn btn-xl">Learn More</a>
+            <div class = "col-md-offset-2 col-md-8" >
+              <div ng-view>
+              </div>
             </div>
         </div>
     </header>
 
 
     <!-- whatsnew.html , display all newsfeed--> 
-    <section id="upcomingEvents" ng-controller="newsCtrl">
+    <section id="upcomingEvents" ng-controller="newsCtrl" class="bg-light-gray">
+        <div class="container">
         <div class="clearfix" ng-controller="newsCtrl">
-            <form ng-Submit = "post()" ><!--ng-show="authenticated" -->
+            <form ng-Submit = "post()" ng-show="authenticated">
                 <h4>{{current_user}} posts new events:</h4>
                 <!--<input required class="form-control" type="text" placeholder="Your name" ng-model="newPost.created_by"/> --> 
                 <input required class="form-control" type="text" placeholder="Event location" ng-model="newPost.created_location"/>
@@ -120,19 +124,38 @@
                 <input class="btn btn-default pull-right" type="submit" value="Submit" />
             </form>
 
-            <div id="post-stream">
-                <div class="col-lg-12 text-center">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Upcoming Events</h2>
+            </div>
 
-                    <h2 class="section-heading">Upcoming Events</h2>
-                </div>
+            <div id="post-stream">
+
                 <div class="post" ng-repeat="post in posts | orderBy:'created_time':true" ng-class-odd="'odd'" ng-class-even="'even'"> 
-                    <p>{{post.text}}</p>
-                    <small>Posted by {{post.created_by}} </small>
-                    <small class="pull-right"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>{{post.created_location}} @ {{post.created_time | date:"h:mma 'on' MMM d, y"}}</small>
+                    <div class="col-lg-12 text-center">
+                        <br>
+                        <br>
+                        <div class="timeline-heading">
+                            <h2>Event: Mid-Autumn Festival Celebration</h2>
+                            <h5 class="pull-left">Event Location: {{post.created_location}}</h4>
+                            <h5 class="pull-right">Event Time: 09/12/2015 5:00pm-6:30pm</h4>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="timeline-body">
+                            <p class="text-muted">{{post.text}}</p>
+                            <medium class="pull-left"> </medium>
+                            <medium class="pull-right">Posted by {{post.created_by}} @ {{post.created_time | date:"h:mma 'on' MMM d, y"}}</medium>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
 
                 </div>
             </div>
 
+        </div>
         </div>
     </section>
 

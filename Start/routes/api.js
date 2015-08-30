@@ -28,32 +28,32 @@ router.route('/posts')
 	//creates a new post
 	.post(function(req, res){
 		
-		res.send({message:'TODO create a new posts'});
+		//res.send({message:'TODO create a new posts'});
 
-		// var post = new Post();
-		// post.text = req.body.text;
-		// post.created_location = req.body.created_location;
-		// post.created_by = req.body.created_by;
-		// post.save(function(err, post) {
-		// 	if (err){
-		// 		console.log('posts error');
-		// 		return res.status(500).send(err);
-		// 	}
-		// 	return res.json(post);
-		// });
+		var post = new Post();
+		post.text = req.body.text;
+		post.created_location = req.body.created_location;
+		post.created_by = req.body.created_by;
+		post.save(function(err, post) {
+			if (err){
+				console.log('posts error');
+				return res.status(500).send(err);
+			}
+			return res.json(post);
+		});
 	})
 	//gets all posts
 	.get(function(req, res){
 		console.log('debug1');
 		
-		res.send({message:'TODO return all posts'});
-		// Post.find(function(err, posts){
-		// 	console.log('debug2');
-		// 	if(err){
-		// 		return res.send(500, err);
-		// 	}
-		// 	return res.status(200).send(posts);
-		// });
+		//res.send({message:'TODO return all posts'});
+		Post.find(function(err, posts){
+			console.log('debug2');
+			if(err){
+				return res.send(500, err);
+			}
+			return res.status(200).send(posts);
+		});
 	});
 
 //post-specific commands. likely won't be used

@@ -76,7 +76,7 @@ app.config(function($routeProvider){
   $routeProvider
     //the timeline display
     .when('/', {
-      templateUrl: '../index.html',
+      templateUrl: '../welcome.html',
       controller: 'mainCtrl'
     })
     //the login display
@@ -85,7 +85,7 @@ app.config(function($routeProvider){
       controller: 'authCtrl'
     })
     //the signup display
-    .when('/register', {
+    .when('/signup', {
       templateUrl: '../register.html',
       controller: 'authCtrl'
     });
