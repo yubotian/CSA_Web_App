@@ -86,6 +86,10 @@ app.config(function($routeProvider){
     .when('/signup', {
       templateUrl: '../register.html',
       controller: 'authCtrl'
+    })
+
+    .when('/intro', {
+      templateUrl: '../intro.html',
     });
 });
 
