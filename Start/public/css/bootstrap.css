@@ -94,7 +94,8 @@ figure {
   margin: 1em 40px;
 }
 hr {
-  height: 0;
+  height: 1px;
+  border-color: inherit;
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;

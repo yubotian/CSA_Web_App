@@ -79,7 +79,7 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#team">Team</a>
+                        <a class="page-scroll" href="#team">ExecBoard</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -88,7 +88,7 @@
                     <p class="navbar-right navbar-text" style = "margin-right: 20px;">
 
                         <a href="#/login" ng-hide="authenticated">Admin Login</a>
-                        <a href="#/signup" ng-show="authenticated">Register</a></p>
+                        <a href="#/signup" ng-hide="authenticated">Register</a></p>
                     <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;"><a href="#/" ng-click="signout()">Logout</a></p>
                     <p class="navbar-right navbar-text" ng-show="authenticated"  style = "margin-right: 20px;">Signed in as {{current_user}}</p>
 
@@ -103,8 +103,9 @@
     <header>
         <div class="container">
             <div class = "col-md-offset-2 col-md-8" >
-              <div ng-view>
+              <div ng-view autoscroll>
               </div>
+
             </div>
         </div>
     </header>
@@ -115,10 +116,12 @@
         <div class="container">
         <div class="clearfix" ng-controller="newsCtrl">
             <form ng-Submit = "post()" ng-show="authenticated">
-                <h4>{{current_user}} posts new events:</h4>
+                <h4>{{current_user}} posting new events:</h4>
                 <!--<input required class="form-control" type="text" placeholder="Your name" ng-model="newPost.created_by"/> --> 
+                <input required class="form-control" type="text" placeholder="Event Title" ng-model="newPost.event_title"/>
                 <input required class="form-control" type="text" placeholder="Event location" ng-model="newPost.created_location"/>
-                <textarea required class="form-control" maxlength="200" rows="3" placeholder="Event description" ng-model="newPost.text"></textarea>
+                <input required class="form-control" type="text" placeholder="Event Time" ng-model="newPost.event_time"/>
+                <textarea required class="form-control" maxlength="999" rows="3" placeholder="Event description" ng-model="newPost.text"></textarea>
 
 
                 <input class="btn btn-default pull-right" type="submit" value="Submit" />
@@ -126,35 +129,32 @@
 
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Upcoming Events</h2>
+                <h3 class="section-subheading text-muted">Check out what fun events are coming soon.</h3>
             </div>
 
             <div id="post-stream">
 
-                <div class="post" ng-repeat="post in posts | orderBy:'created_time':true" ng-class-odd="'odd'" ng-class-even="'even'"> 
+                <div class="post" ng-repeat="post in posts | orderBy:'created_time':true | limitTo: 2" ng-class-odd="'odd'" ng-class-even="'even'"> 
                     <div class="col-lg-12 text-center">
-                        <br>
-                        <br>
-                        <div class="timeline-heading">
-                            <h2>Event: Mid-Autumn Festival Celebration</h2>
-                            <h5 class="pull-left">Event Location: {{post.created_location}}</h4>
-                            <h5 class="pull-right">Event Time: 09/12/2015 5:00pm-6:30pm</h4>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="timeline-body">
-                            <p class="text-muted">{{post.text}}</p>
-                            <medium class="pull-left"> </medium>
-                            <medium class="pull-right">Posted by {{post.created_by}} @ {{post.created_time | date:"h:mma 'on' MMM d, y"}}</medium>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
+                            <div class="timeline-heading">
+                                <h2>Event: {{post.event_title}}</h2>
+                                <h5 class="pull-left">Event Location: {{post.created_location}}</h5>
+                                <h5 class="pull-right">Event Time: {{post.event_time}}</h5>
+                            </div>
+                            <br>
+                            <br>
 
+                            <div class="timeline-body">
+                                <p class="text-muted">{{post.text}}</p>
+                                <medium class="pull-left"> </medium>
+                                <medium class="pull-right">Posted by {{post.created_by}} @ {{post.created_time | date:"h:mma 'on' MMM d, y"}}</medium>
+                            </div>
+                            <br>
+                            <br>
+                            <hr>
+                    </div>
                 </div>
             </div>
-
         </div>
         </div>
     </section>
@@ -166,7 +166,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Our functions and responsibilities on and off Duke campus.</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -175,7 +175,7 @@
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">E-Commerce</h4>
+                    <h4 class="service-heading">Chinese Culture</h4>
                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-4">
@@ -183,7 +183,7 @@
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Responsive Design</h4>
+                    <h4 class="service-heading">Asian Awareness</h4>
                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
                 <div class="col-md-4">
@@ -191,7 +191,7 @@
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Web Security</h4>
+                    <h4 class="service-heading">Philanthropy</h4>
                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
             </div>
@@ -205,7 +205,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Awesome things that we do every school year.</h3>
                 </div>
             </div>
             <div class="row">
@@ -219,7 +219,7 @@
                         <img src="img/portfolio/roundicons.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Round Icons</h4>
+                        <h4>Karaoke and Games</h4>
                         <p class="text-muted">Graphic Design</p>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                         <img src="img/portfolio/startup-framework.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Startup Framework</h4>
+                        <h4>Mid-Autumn Festival</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                         <img src="img/portfolio/treehouse.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Treehouse</h4>
+                        <h4>Academic Workshop</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                         <img src="img/portfolio/golden.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Golden</h4>
+                        <h4>LNY Celebration</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
@@ -275,7 +275,7 @@
                         <img src="img/portfolio/escape.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Escape</h4>
+                        <h4>Hotpot Night</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
                         <img src="img/portfolio/dreams.png" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Dreams</h4>
+                        <h4>Mentor Mentee Program</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
@@ -303,7 +303,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">A brief history of Duke CSA.</h3>
                 </div>
             </div>
             <div class="row">
@@ -315,7 +315,7 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>2009-2011</h4>
+                                    <h4>200x-200x</h4>
                                     <h4 class="subheading">Our Humble Beginnings</h4>
                                 </div>
                                 <div class="timeline-body">
@@ -329,8 +329,8 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>March 2011</h4>
-                                    <h4 class="subheading">An Agency is Born</h4>
+                                    <h4>March 2009</h4>
+                                    <h4 class="subheading">An Orgnization is Born</h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
@@ -343,8 +343,8 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>December 2012</h4>
-                                    <h4 class="subheading">Transition to Full Service</h4>
+                                    <h4>December 2010</h4>
+                                    <h4 class="subheading">Our First Event</h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
@@ -357,8 +357,8 @@
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>July 2014</h4>
-                                    <h4 class="subheading">Phase Two Expansion</h4>
+                                    <h4>July 2015</h4>
+                                    <h4 class="subheading">Learning and Growing</h4>
                                 </div>
                                 <div class="timeline-body">
                                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
@@ -384,15 +384,15 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Our Amazing Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Duke Chinese Student Association Executive Board 2015-2016</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Kay Garland</h4>
-                        <p class="text-muted">Lead Designer</p>
+                        <img src="img/team/vera.png" class="img-responsive img-circle" alt="" height="250" width="250">
+                        <h4>Vera Zhang</h4>
+                        <p class="text-muted">President</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -405,9 +405,9 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Larry Parker</h4>
-                        <p class="text-muted">Lead Marketer</p>
+                        <img src="img/team/sienna.png" class="img-responsive img-circle" alt="" height="250" width="250">
+                        <h4>Sienna Liu</h4>
+                        <p class="text-muted">Executive Vice President</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -420,9 +420,9 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Diana Pertersen</h4>
-                        <p class="text-muted">Lead Developer</p>
+                        <img src="img/team/jackie.png" class="img-responsive img-circle" alt="" height="250" width="250">
+                        <h4>Jackie Huang</h4>
+                        <p class="text-muted">Treasurer</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -441,34 +441,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Clients Aside -->
-    <aside class="clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img src="img/logos/envato.jpg" class="img-responsive img-centered" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img src="img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img src="img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <a href="#">
-                        <img src="img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </aside>
     
     <!-- Contact Section -->
     <section id="contact">
@@ -476,7 +448,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Contact Us</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">Currently under investigation.</h3>
                 </div>
             </div>
             <div class="row">
@@ -592,7 +564,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Project Heading</h2>
+                            <h2>Mid-Autumn Festival Celebration</h2>
                             <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                             <img class="img-responsive img-centered" src="img/portfolio/startup-framework-preview.png" alt="">
                             <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website builder for professionals. Startup Framework contains components and complex blocks (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost any design. All of these components are made in the same style, and can easily be integrated into projects, allowing you to create hundreds of solutions for your future projects.</p>

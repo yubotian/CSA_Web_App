@@ -18,12 +18,12 @@ var authenticate = require('./routes/authenticate')(passport);
 
 var mongoose = require('mongoose');
 //connect to mongo db
-//if(process.env.DEV_ENV){
+if(process.env.DEV_ENV){
   mongoose.connect("mongodb://localhost:27017/csaTest");
-//}
-//else {
- // mongoose.connect("mongodb://dbuseryubo:dbpassword1@ds062097.mongolab.com:62097/yubotian");
-//}
+}
+else {
+  mongoose.connect("mongodb://csadbuser:csadbuserpassword@ds035633.mongolab.com:35633/csaeventsdatabase");
+}
 
 
 var app = express();

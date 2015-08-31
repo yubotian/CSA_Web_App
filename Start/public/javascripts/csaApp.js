@@ -19,20 +19,18 @@ app.controller('mainCtrl', function(){
 });
 
 
-app.controller ('newsCtrl' , function( $scope, postService ) {
+app.controller ('newsCtrl' , function( $scope, $rootScope, postService ) {
 	$scope.posts = postService.query();
-	$scope.newPost = { created_by : '' , created_location : '' , text : '' , created_time : '' } ; //TODO: picture
+	$scope.newPost = { event_time : '', event_title : '' , created_by : '' , created_location : '' , text : '' , created_time : '' } ; //TODO: picture
 
 
 	$scope.post = function() {
-    $scope.newPost.created_by = "DukeCSA";
-    //alternatively: 
-    //$scope.newPost.created_by = $rootScope.current_user;
+    $scope.newPost.created_by = $rootScope.current_user;
     $scope.newPost.created_time = Date.now(); 
 
     postService.save($scope.newPost, function(){
       $scope.posts = postService.query();
-      $scope.newPost = { created_by: '' , created_location : '' , text : '' , created_time : '' } ;
+      $scope.newPost = { event_time : '', event_title : '' , created_by: '' , created_location : '' , text : '' , created_time : '' } ;
     });
     
 	};

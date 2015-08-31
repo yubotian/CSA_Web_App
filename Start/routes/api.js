@@ -31,6 +31,8 @@ router.route('/posts')
 		//res.send({message:'TODO create a new posts'});
 
 		var post = new Post();
+		post.event_title = req.body.event_title;
+		post.event_time = req.body.event_time;
 		post.text = req.body.text;
 		post.created_location = req.body.created_location;
 		post.created_by = req.body.created_by;
@@ -73,6 +75,8 @@ router.route('/posts/:id')
 				res.send(err);
 
 			post.created_by = req.body.created_by;
+			post.event_title = req.body.event_title;
+			post.event_time = req.body.event_time;
 			post.text = req.body.text;
 			post.created_location = req.body.created_location;
 
