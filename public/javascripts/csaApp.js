@@ -90,6 +90,10 @@ app.config(function($routeProvider){
 
     .when('/intro', {
       templateUrl: '../intro.html',
+    })
+
+    .otherwise({
+      templateUrl: '../intro.html',
     });
 });
 
